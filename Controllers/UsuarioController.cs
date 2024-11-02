@@ -18,7 +18,7 @@ namespace rootearAPI.Controllers
             _context = context;
         }
 
-        
+
         [HttpGet(Name = "GetUser")]
         public async Task<IActionResult> Obtener()
         {
@@ -27,13 +27,16 @@ namespace rootearAPI.Controllers
                 var lista = await _context.USUARIO
                            .Include(u => u.Lugar) // Cargar la relación con Lugar
                            .Include(u => u.Vehiculo) // Cargar la relación con Vehiculo
+                           .Where(u => u.Activo) // Filtrar usuarios activos
                            .ToListAsync();
                 return Ok(lista);
             }
-            catch (Exception ex) { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-       
         [HttpGet("ObtenerPorId/{IdUsuario:int}")]
         public async Task<IActionResult> ObtenerPorId([FromRoute(Name = "IdUsuario")] int id)
         {

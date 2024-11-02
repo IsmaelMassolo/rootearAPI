@@ -23,7 +23,14 @@ namespace rootear.Controllers
         {
             try
             {
-                var lista = await _context.VIAJE.ToListAsync();
+                var lista = await _context.VIAJE
+                    .Include(v=> v.Origen)
+                    .Include(v=> v.Destino)
+                    .Include(v=> v.UsuarioCreador)
+                    .Where(v => v.FechaSalida >= DateTime.Now &&
+                           v.CantButacas > 0 &&
+                           v.UsuarioCreador.Activo)
+                    .ToListAsync();
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -53,7 +60,6 @@ namespace rootear.Controllers
         {
             try
             {
-                // Crear un nuevo objeto Viaje
                 var viaje = new Viaje
                 {
                     IdOrigen = crearViaje.IdOrigen,
