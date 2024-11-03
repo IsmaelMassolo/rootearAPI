@@ -27,6 +27,7 @@ namespace rootear.Controllers
                     .Include(v=> v.Origen)
                     .Include(v=> v.Destino)
                     .Include(v=> v.UsuarioCreador)
+                    .Include (v=> v.UsuarioCreador.Vehiculo)
                     .Where(v => v.FechaSalida >= DateTime.Now &&
                            v.CantButacas > 0 &&
                            v.UsuarioCreador.Activo)
@@ -87,23 +88,6 @@ namespace rootear.Controllers
             }
         }
 
-        //[HttpPost("GuardarImagen")]
-        //public async Task<IActionResult> GuardarImagen([FromForm] IFormFile archivo)
-        //{
-        //    if (archivo == null || archivo.Length == 0)
-        //    {
-        //        return BadRequest("No se ha subido ningún archivo.");
-        //    }
-
-        //    var rutaGuardado = Path.Combine("wwwroot\\ImagenesViajes", archivo.FileName);
-
-        //    using (var stream = new FileStream(rutaGuardado, FileMode.Create))
-        //    {
-        //        await archivo.CopyToAsync(stream);
-        //    }
-
-        //    return Ok("Imagen guardada correctamente.");
-        //}
 
 
         [HttpDelete("{IdViaje:int}")]

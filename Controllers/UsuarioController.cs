@@ -126,9 +126,15 @@ namespace rootearAPI.Controllers
             try
             {
                 var usuarioExistente = await _context.USUARIO.FindAsync(IdUsuario);
-
+                
                 if (usuarioExistente != null)
                 {
+                    var salaReserva = await _context.SALA_RESERVA.FindAsync(usuarioExistente.IdUsuario);
+                    if (salaReserva != null)
+                    {
+                        salaReserva.Estado = false;
+                        await _context.SaveChangesAsync();
+                    }
                     usuarioExistente.Activo = false;
                     await _context.SaveChangesAsync();
                 }
