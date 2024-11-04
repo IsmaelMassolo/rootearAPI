@@ -136,11 +136,8 @@ namespace rootearAPI.Controllers
                     _context.DETALLE_RESERVA.Remove(viajeEnReserva);
                     await _context.SaveChangesAsync();
 
-                    var viajeEnHistorial = new ViajeUsuario
-                    {
-                        IdViaje = dto.IdViaje,
-                        IdUsuario = dto.IdUsuario
-                    };
+                    var viajeEnHistorial = await _context.VIAJE_USUARIO
+                        .FirstOrDefaultAsync(d => d.IdViaje == dto.IdViaje && d.IdUsuario == dto.IdUsuario);
 
                     _context.VIAJE_USUARIO.Remove(viajeEnHistorial);
                     await _context.SaveChangesAsync();
