@@ -89,7 +89,6 @@ namespace rootear.Controllers
         }
 
 
-
         [HttpDelete("{IdViaje:int}")]
         public async Task<IActionResult> Borrar([FromRoute] int IdViaje)
         {
@@ -109,43 +108,5 @@ namespace rootear.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpPut("{IdViaje:int}")]
-        //public async Task<IActionResult> Modificar([FromBody] ModificarViajeDTO modificarViaje, [FromRoute] int IdViaje)
-        //{
-        //    try
-        //    {
-        //        var viajeExistente = await _context.VIAJE.FindAsync(IdViaje);
-
-        //        if (viajeExistente != null)
-        //        {
-        //            if (!modificarViaje.Titulo.IsNullOrEmpty()) viajeExistente.Titulo = modificarViaje.Titulo;
-        //            if (!modificarViaje.Autor.IsNullOrEmpty()) viajeExistente.Autor = modificarViaje.Autor;
-        //            if (modificarViaje.AnioEdicion != null) viajeExistente.AnioEdicion = modificarViaje.AnioEdicion;
-        //            if (!modificarViaje.Editorial.IsNullOrEmpty()) viajeExistente.Editorial = modificarViaje.Editorial;
-        //            if (!modificarViaje.Sinopsis.IsNullOrEmpty()) viajeExistente.Sinopsis = modificarViaje.Sinopsis;
-        //            if (!modificarViaje.Idioma.IsNullOrEmpty()) viajeExistente.Idioma = modificarViaje.Idioma;
-        //            if (modificarViaje.CantPaginas != null) viajeExistente.CantPaginas = modificarViaje.CantPaginas;
-        //            if (!modificarViaje.ISBN.IsNullOrEmpty()) viajeExistente.ISBN = modificarViaje.ISBN;
-        //            if (!modificarViaje.Estado.IsNullOrEmpty()) viajeExistente.Estado = modificarViaje.Estado;
-        //            if (modificarViaje.Stock != null) viajeExistente.Stock = modificarViaje.Stock;
-        //            if (!modificarViaje.Formato.IsNullOrEmpty()) viajeExistente.Formato = modificarViaje.Formato;
-        //            if (modificarViaje.Precio != null) viajeExistente.Precio = modificarViaje.Precio;
-        //            if (modificarViaje.Cuotas != null) viajeExistente.Cuotas = modificarViaje.Cuotas;
-        //            if (!modificarViaje.Envio.IsNullOrEmpty()) viajeExistente.Envio = modificarViaje.Envio;
-        //            if (modificarViaje.Habilitado != null) viajeExistente.Habilitado = modificarViaje.Habilitado;
-
-        //            //if (!modificarViaje.RutaImagen.IsNullOrEmpty()) viajeExistente.RutaImagen = modificarViaje.RutaImagen;
-        //            _context.VIAJE.Update(viajeExistente);
-        //            await _context.SaveChangesAsync();
-        //        }
-
-        //        return NoContent();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
     }
 }

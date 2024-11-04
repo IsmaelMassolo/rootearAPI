@@ -8,5 +8,7 @@ namespace rootearAPI.Models.DTO
         public int IdViaje { get; set; }
 
         public DateTime FechaAgregado { get; set; } = DateTime.Now;
+
+        public int IdUsuario { get; set; }
     }
 }

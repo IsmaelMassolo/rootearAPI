@@ -50,8 +50,6 @@ namespace rootearAPI.Controllers
             return Ok(lista);
         }
 
-
-
         [HttpPost("Agregar")]
         public async Task<IActionResult> AgregarViaje([FromBody] DetalleReservaDTO dto)
         {
@@ -86,8 +84,18 @@ namespace rootearAPI.Controllers
                         FechaAgregado = DateTime.Now
                     };
 
+                    var nuevoViajeEnHistorial = new ViajeUsuario
+                    {
+                        IdViaje = dto.IdViaje,
+                        IdUsuario = dto.IdUsuario
+                    };
+
                     await _context.DETALLE_RESERVA.AddAsync(nuevoViajeEnReserva);
                     await _context.SaveChangesAsync();
+
+                    await _context.VIAJE_USUARIO.AddAsync(nuevoViajeEnHistorial);
+                    await _context.SaveChangesAsync();
+
                     viaje.CantButacas -= 1;
                     await _context.SaveChangesAsync();
                 }
@@ -126,6 +134,15 @@ namespace rootearAPI.Controllers
                     await _context.SaveChangesAsync();
 
                     _context.DETALLE_RESERVA.Remove(viajeEnReserva);
+                    await _context.SaveChangesAsync();
+
+                    var viajeEnHistorial = new ViajeUsuario
+                    {
+                        IdViaje = dto.IdViaje,
+                        IdUsuario = dto.IdUsuario
+                    };
+
+                    _context.VIAJE_USUARIO.Remove(viajeEnHistorial);
                     await _context.SaveChangesAsync();
                 }
                 return NoContent();
