@@ -166,22 +166,6 @@ namespace rootearAPI.Controllers
                     if (usuarioDto.Activo != null) usuarioExistente.Activo = usuarioDto.Activo;
                     if (!string.IsNullOrEmpty(usuarioDto.RutaImagen)) usuarioExistente.RutaImagen = usuarioDto.RutaImagen;
 
-                    // Buscar el IdLugar en función de la ciudad y provincia
-                    //if (!string.IsNullOrEmpty(usuarioDto.Ciudad) && !string.IsNullOrEmpty(usuarioDto.Provincia))
-                    //{
-                    //    var lugar = await _context.LUGAR
-                    //        .FirstOrDefaultAsync(x => x.Ciudad == usuarioDto.Ciudad && x.Provincia == usuarioDto.Provincia);
-
-                    //    if (lugar != null)
-                    //    {
-                    //        usuarioExistente.IdLugar = lugar.IdLugar; // Asignar el IdLugar encontrado
-                    //    }
-                    //    else
-                    //    {
-                    //        return BadRequest("El lugar no existe."); // Manejar el caso si no se encuentra el lugar
-                    //    }
-                    //}
-
                     _context.USUARIO.Update(usuarioExistente);
                     await _context.SaveChangesAsync();
                     return NoContent();
@@ -214,7 +198,7 @@ namespace rootearAPI.Controllers
 
             if (!usuarioLogin.Activo)
             {
-                return BadRequest("El usuario no está activo y no puede acceder a la aplicación.");
+                return BadRequest("Estas deshabilitado para rootear. Contacta al administrador");
             }
 
             SalaReserva salaReserva = await _context.SALA_RESERVA.FirstOrDefaultAsync(x => x.IdSalaReserva.Equals(usuarioLogin.IdSalaReserva));
